@@ -1,0 +1,50 @@
+name: WPML
+on:
+  workflow_call:
+    inputs:
+      slug:
+        required: false
+        default: "sitepress-multilingual-cms"
+        type: string
+    outputs:
+      updated:
+        description: "If the update didnt exist and was built"
+        value: ${{ jobs.build.outputs.updated }}
+      version:
+        description: "The updated version"
+        value: ${{ jobs.build.outputs.version }}
+    secrets:
+      USER_ID:
+        required: true
+      LICENSE_KEY:
+        required: true
+
+jobs:
+  build:
+    name: Update plugin
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      updated: ${{ steps.update.outputs.updated }}
+      version: ${{ steps.update.outputs.version }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Retrieve the package information
+        run: |
+          {
+            echo 'REMOTE_RESPONSE<<EOF'
+            curl -s -X GET 'http://d2salfytceyqoe.cloudfront.net/wpml33-products.json' | jq -r '.downloads.plugins."${{ inputs.slug }}"'
+            echo 'EOF'
+          } >> "$GITHUB_ENV"
+
+      - name: Update repo
+        uses: tombroucke/github-action-update-plugins@master
+        id: update
+        with:
+          download_url: "${{ fromJson(env.REMOTE_RESPONSE).url }}&user_id=${{ secrets.USER_ID }}&subscription_key=${{ secrets.LICENSE_KEY }}"
+          version: ${{ fromJson(env.REMOTE_RESPONSE).version }}
+          changelog_extract: |
+            ${{ fromJson(env.REMOTE_RESPONSE).changelog }}
