@@ -34,7 +34,7 @@ jobs:
           } >> "$GITHUB_ENV"
 
       - name: Update repo
-        uses: generoi/github-action-update-plugins@master
+        uses: tombroucke/github-action-update-plugins@master
         id: update
         with:
           download_url: "https://connect.advancedcustomfields.com/v2/plugins/download?p=pro&k=${{ secrets.LICENSE_KEY }}"
