@@ -1,4 +1,4 @@
-name: 'Update'
+name: "Update"
 
 inputs:
   version:
@@ -13,7 +13,7 @@ inputs:
     required: false
   strip_archive_folder:
     description: "Remove the parent folder of the downloaded archive (defaults to true)"
-    default: 'true'
+    default: "true"
     required: false
 
 outputs:
@@ -25,7 +25,7 @@ outputs:
     value: ${{ steps.completed-job.outputs.version }}
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Fetch tags
       shell: bash
@@ -51,7 +51,7 @@ runs:
       run: |
         git rm -rf .
         git clean -fxd
-
+        echo "${{ inputs.download_url }}"
         if [ ! -z "${{ inputs.download_url }}" ]; then
           curl "${{ inputs.download_url }}" > package.zip
         elif [ ! -z "${{ inputs.download_path }}" ]; then
