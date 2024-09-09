@@ -39,7 +39,6 @@ jobs:
             curl -s -X GET 'http://d2salfytceyqoe.cloudfront.net/wpml33-products.json' | jq -r '.downloads.plugins."${{ inputs.slug }}"'
             echo 'EOF'
           } >> "$GITHUB_ENV"
-          echo "${{ fromJson(env.REMOTE_RESPONSE).url }}&user_id=${{ secrets.USER_ID }}&subscription_key=${{ secrets.LICENSE_KEY }}"
 
       - name: Update repo
         uses: tombroucke/github-action-update-plugins@master
