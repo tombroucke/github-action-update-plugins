@@ -46,5 +46,4 @@ jobs:
         with:
           download_url: "${{ fromJson(env.REMOTE_RESPONSE).url }}&user_id=${{ secrets.USER_ID }}&subscription_key=${{ secrets.LICENSE_KEY }}"
           version: ${{ fromJson(env.REMOTE_RESPONSE).version }}
-          changelog_extract: |
-            ${{ fromJson(env.REMOTE_RESPONSE).changelog }}
+          changelog: ${{ fromJson(env.REMOTE_RESPONSE).changelog }}
