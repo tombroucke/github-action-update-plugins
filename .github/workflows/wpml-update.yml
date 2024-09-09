@@ -45,5 +45,5 @@ jobs:
         id: update
         with:
           download_url: "${{ fromJson(env.REMOTE_RESPONSE).url }}&user_id=${{ secrets.USER_ID }}&subscription_key=${{ secrets.LICENSE_KEY }}"
-          version: "${{ fromJson(env.REMOTE_RESPONSE).version }}"
-          changelog: "${{ fromJson(env.REMOTE_RESPONSE).changelog }}"
+          version: "4.6.13"
+          changelog: ""
