@@ -27,6 +27,7 @@ runs:
           echo -e "\n"
           echo 'EOF'
         } >> "$GITHUB_OUTPUT"
+        echo $GITHUB_OUTPUT
       env:
         ACCESS_TOKEN: ${{ inputs.access_token }}
         ACCESS_TOKEN_SECRET: ${{ inputs.access_token_secret }}
