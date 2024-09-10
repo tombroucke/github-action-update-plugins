@@ -48,4 +48,4 @@ jobs:
         with:
           download_url: ${{ fromJson(steps.wccom-package.outputs.package).package }}
           version: ${{ fromJson(steps.wccom-package.outputs.package).version }}
-          changelog_extract: awk -v ver=${{ fromJson(steps.wccom-package.outputs.package).version }} ${{ inputs.changelog_extract }}
+          # changelog_extract: awk -v ver=${{ fromJson(steps.wccom-package.outputs.package).version }} ${{ inputs.changelog_extract }}
